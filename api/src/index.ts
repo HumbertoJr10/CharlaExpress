@@ -1,17 +1,34 @@
-import express from 'express';
-import morgan from 'morgan';
+import express from "express";
+import morgan from "morgan";
+import cors from 'cors'
+import router from "./routes/index.routes";
+import { PORT } from "../config";
+import { createServer } from "http";
+import {Server as SocketServer } from 'socket.io'
 
-const app = express()
+const app = express();
+const server = createServer(app)
+const io = new SocketServer(server, {
+  cors: {
+    origin: '*'
+  }
+});
 
-app.use(express.json())
-app.use(morgan('dev'))
 
+/// --------- Middleware ----------
+app.use(express.json());
+app.use(morgan("dev"));
+app.use(cors())
+//---------------------------------
 
-app.get( '/ping', ( _req, res) => {
-    console.log('funcionando')
-    res.send('pong')
+app.use("/", router);
+
+io.on('connection', (socket)=> {
+  console.log(`user: ${socket.id} user connected`)
 })
 
-app.listen(4000, ()=> {
-    console.log('app listen in port 3000')
-})
+server.listen(PORT, () => {
+  console.log(`Server on port ${PORT}`);
+});
+
+export default io
