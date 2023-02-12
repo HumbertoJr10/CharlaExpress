@@ -1,12 +1,11 @@
-import React from 'react'
-import io from 'socket.io-client'
-
-const socket = io('http://localhost:4000/')
+import { hook_Home } from './hook_Home';
+import styles from './Home.module.css';
 
 function Home() {
+
   return (
-    <div>
-        <h1>Home</h1>
+    <div className={styles.Home_Container}>
+      
     </div>
   )
 }
