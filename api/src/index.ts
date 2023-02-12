@@ -1,5 +1,6 @@
 import { PORT } from "../config";
 import Server from "./server";
+import { connect, set } from 'mongoose'
 import { Server as SocketServer } from "socket.io";
 
 const io = new SocketServer(Server, {
@@ -20,6 +21,14 @@ io.on("connection", (socket) => {
 
 });
 
-Server.listen(PORT, () => {
-  console.log(`Server on port ${PORT}`);
-});
+set('strictQuery', true)
+
+async function connectDB() {
+  const db = await connect('mongodb+srv://Lunaku:PAetPruf25XaYAh5@cluster0.lnixbat.mongodb.net/test')
+  Server.listen(PORT, () => {
+    console.log(`${db.connection.db.databaseName} connected on port ${PORT}`);
+  });
+}
+
+
+connectDB()
