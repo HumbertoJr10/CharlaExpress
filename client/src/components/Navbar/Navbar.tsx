@@ -1,11 +1,17 @@
-import React from "react";
 import styles from "./Navbar.module.css";
 
 function Navbar() {
   return (
-    <div className={styles.Navbar_Container}>
-      <h1>Navbar</h1>
-    </div>
+    <nav className={styles.Navbar_Container}>
+      <div className={styles.Navbar_leftSide}>
+        <h1>CHAT</h1>
+      </div>
+      <div className={styles.Navbar_rigthSide}>
+        <h2>item1</h2>
+        <h2>item2</h2>
+        <h2>item3</h2>
+      </div>
+    </nav>
   );
 }
 
