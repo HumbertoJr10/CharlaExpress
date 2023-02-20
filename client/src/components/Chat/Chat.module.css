@@ -1,0 +1,93 @@
+.Chat_Overlay {
+    width: 100%;
+    height: 100%;
+    padding-top: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+}
+
+.Chat_Container {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: 70vh;
+    background-color: rgb(31, 31, 37);
+    border-radius: 20px;
+    align-items: center;
+    padding: 5px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.Chat_Chat_Container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    background-color: rgb(31, 31, 37);
+    box-shadow: 1px 1px 12px 1px rgba(0, 0, 0, 0.644);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Chat_Chat_EmoticonSide {
+    width: 100px;
+    height: 40px;
+    background-color: rgb(182, 182, 9);
+}
+
+.Chat_Chat_TextSide {
+    width: 600px;
+    height: 40px;
+    
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Chat_Chat_TextSide input {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: rgb(18, 18, 22);
+    color: rgb(207, 201, 201);
+    padding-left: 10px;
+    font-size: 18px;
+    border: none;
+}
+
+.Chat_Chat_TextSide input:focus {
+    outline: none;
+}
+
+.Chat_Chat_SubmitSide {
+    width: 100px;
+    height: 40px;
+    background-color: rgb(182, 182, 9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.Chat_MessageContainer {
+    border: 1px solid red;
+    margin: 10px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    border-top-left-radius: 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat_MessageOverlay {
+    
+    display: flex;
+    width: 100%;
+    justify-content: start;
+}

@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import io from "socket.io-client";
+import Chat from "./components/Chat/Chat";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 
@@ -11,6 +12,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
     </>
   );
