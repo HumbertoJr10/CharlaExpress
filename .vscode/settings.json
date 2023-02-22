@@ -2,6 +2,7 @@
     "conventionalCommits.scopes": [
         "Server",
         "Components",
-        "Database"
+        "Database",
+        "Route"
     ]
 }
