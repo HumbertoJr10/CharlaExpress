@@ -4,6 +4,7 @@
         "Components",
         "Database",
         "Route",
-        "models"
+        "models",
+        "Redux"
     ]
 }

@@ -1,84 +1,30 @@
 import { useState } from 'react';
 import styles from './Chat.module.css';
 import { hook_Chat } from './hook_Chat';
+import { useSelector } from 'react-redux';
+import { iGlobalMessage, iState } from '../../interface';
 
-interface Message {
-  author: string,
-  content: string
-}
 
 function Chat () {
-  const [messag, setMessag] = useState<Message[]>([
-    {
-      author: 'Juan',
-      content: 'Hola como estásaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa?'
-    },
-    {
-      author: 'Pablo',
-      content: 'Bien amigo! Y tu?'
-    },
-    {
-      author: 'Pablo',
-      content: 'Bien amigo! Y tu?'
-    },
-    {
-      author: 'Pablo',
-      content: 'Bien amigo! Y tu?'
-    },
-    {
-      author: 'Pablo',
-      content: 'Bien amigo! Y tu?'
-    },
-    {
-      author: 'Pablo',
-      content: 'Bien amigo! Y tu?'
-    },
-    {
-      author: 'Pablo',
-      content: 'Bien amigo! Y tu?'
-    },
-    {
-      author: 'Pablo',
-      content: 'Bien amigo! Y tu?'
-    },
-    {
-      author: 'Pablo',
-      content: 'Bien amigo! Y tu?'
-    },
-    {
-      author: 'Pablo',
-      content: 'Bien amigo! Y tu?'
-    },
-    {
-      author: 'Pablo',
-      content: 'Bien amigo! Y tu?'
-    },
-    {
-      author: 'Pablo',
-      content: 'Bien amigo! Y tu?'
-    },
-    {
-      author: 'Pablo',
-      content: 'Bien amigo! Y tu?'
-    }
-  ])
-  const { text, HandlerChange } = hook_Chat()
+  
+  const { text, messages, HandlerChange } = hook_Chat()
+  const GlobalChat:iGlobalMessage[] = useSelector( (state:iState) => state.GlobalChat)
 
-  console.log(text)
+  console.log(GlobalChat)
 
   return (
     <div className={styles.Chat_Overlay}>
       <main className={styles.Chat_Container}>
           {
             
-            messag.map((chat, index) => (
+            messages.map((chat, index) => (
               <div className={styles.chat_MessageOverlay}>
                 <div className={styles.Chat_MessageContainer} key={index}>
                     <div className={styles.Chat_MessageAuthor}>
-                      <p>{chat.author}</p>
+                      <p>nombre</p>
                     </div>
                     <div className={styles.Chat_MessageContent}>
-                      <p>{chat.content}</p>
+                      <p>texto</p>
                     </div>
                 </div>
               </div>
