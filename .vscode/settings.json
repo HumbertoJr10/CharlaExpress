@@ -3,6 +3,7 @@
         "Server",
         "Components",
         "Database",
-        "Route"
+        "Route",
+        "models"
     ]
 }
