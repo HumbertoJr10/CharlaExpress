@@ -19,3 +19,9 @@ export interface iGlobalMessage {
 export interface iSendMessage {
     message: string
 }
+
+export interface iUser {
+    username: string,
+    email: string,
+    picture: string
+}

@@ -14,14 +14,12 @@ export const postUser = async (req: Request, res: Response) => {
 
     const findUser = await UserModel.findOne({ email });
     if (findUser) {
-      return res
-        .status(500)
-        .json(`El email ${email} ya se encuentra asignado a otro usuario`);
+      return res.status(200).json(findUser)
     }
 
     const newUser = new UserModel({ username, email, picture });
     await newUser.save();
-    return res.status(200).json("Usuario Creado");
+    return res.status(200).json(newUser);
   } catch (error) {
     res.status(400).json("error: " + error);
   }

@@ -31,7 +31,6 @@ function Chat () {
                 </div>
               </div>
             ))
-            
           }
       </main>
       <form className={styles.Chat_Chat_Container}>

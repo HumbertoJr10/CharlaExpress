@@ -8,6 +8,7 @@ import {
 import { sendMessage_globalChat } from "../../redux/action";
 import { iSendMessage } from "../../interface";
 import { socket } from "../../App";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const hook_Chat = () => {
   const [text, setText] = useState<iSendMessage>({
@@ -16,6 +17,8 @@ export const hook_Chat = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const messages = useSelector((state: iState) => state.GlobalChat);
+
+  const {user, isAuthenticated} = useAuth0()
 
   function scrollToBottom() {
     chatContainerRef.current?.scrollTo({
@@ -52,17 +55,25 @@ export const hook_Chat = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    sendMessage_globalChat("Rollins@gmail.com", text)
-      .then((res) => {
-        dispatch(res);
-      })
-      .catch((error) => alert(error));
 
-    setText({
-      message: "",
-    });
+    if (!isAuthenticated) {
+      return alert('Debe iniciar sesion para poder escribir en el chat')
+    }
 
-    socket.emit('message', text.message)
+    if (user?.email) {
+
+      sendMessage_globalChat(user.email, text)
+        .then((res) => {
+          dispatch(res);
+        })
+        .catch((error) => alert(error));
+  
+      setText({
+        message: "",
+      });
+  
+      socket.emit('message', text.message)
+    }
   };
 
   const DeleteMessage = (_id: string) => {
