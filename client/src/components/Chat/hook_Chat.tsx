@@ -42,8 +42,6 @@ export const hook_Chat = () => {
   }, [messages]);
 
   useEffect(()=> {
-
-
     socket.on('message', async (message)=> {
       console.log(message)
       dispatch(await messages_globalChat(message))
@@ -86,7 +84,7 @@ export const hook_Chat = () => {
 
       sendMessage_globalChat(user.email, text)
         .then((res) => {
-          console.log(res);
+          
         })
         .catch((error) => alert(error));
   

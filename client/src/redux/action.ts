@@ -10,7 +10,6 @@ export const NEW_GLOBALCHAT = 'NEW_GLOBALCHAT';
 
 export async function messages_globalChat (front:boolean | iGlobalMessage = false) {  
     if (front) {
-        console.log('nuevo mensaje')
         return {
             type: NEW_GLOBALCHAT,
             payload: front

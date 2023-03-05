@@ -13,8 +13,6 @@ function Navbar() {
   
   const UserLoged = useSelector( (state:iState) => state.UserLoged)
 
-  console.log(UserLoged)
-
   return (
     <nav className={styles.Navbar_Container}>
       <Link className={styles.Navbar_leftSide} to={"/"}> 

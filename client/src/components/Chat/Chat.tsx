@@ -13,14 +13,14 @@ function Chat () {
   
   const { text, messages, chatContainerRef, DeleteMessage, HandlerChange, MessageSubbmit } = hook_Chat()
 
-  console.log(messages)
+  
   return (
     <div className={styles.Chat_Overlay}>
       <main className={styles.Chat_Container} ref={chatContainerRef}>
           {
             
             messages.map((chat, index) => (
-              <div className={styles.chat_MessageOverlay}>
+              <div key={index + "Message"} className={styles.chat_MessageOverlay}>
                 <div className={styles.Chat_MessageContainer} key={index}>
                     <div className={styles.Chat_MessageAuthor}>
                       <p>{chat.author.username}</p>
