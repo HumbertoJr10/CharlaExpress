@@ -1,6 +1,7 @@
 .Navbar_Container {
+    height: 7vh;
     width: 100%;
-    height: 50px;
+    min-height: 50px;
     background-color: rgb(85, 167, 85);
     position: relative;
     display: flex;
@@ -14,6 +15,7 @@
     align-items: center;
     font-family: 'Josefin Sans', sans-serif;
     padding-left: 15px;
+    text-decoration: none;
 }
 
 .Navbar_leftSide img {
