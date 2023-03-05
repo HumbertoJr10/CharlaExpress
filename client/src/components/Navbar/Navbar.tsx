@@ -1,15 +1,28 @@
 import styles from "./Navbar.module.css";
+import chatIcon from "../../assets/chatIcon.svg"
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Navbar() {
+
+  const { user, isAuthenticated } = useAuth0()
+
+  console.log(user)
+
   return (
     <nav className={styles.Navbar_Container}>
       <div className={styles.Navbar_leftSide}>
-        <h1>TITLE</h1>
+        <img src={chatIcon} />
+        <h1>Charla<strong>Express</strong></h1>
       </div>
       <div className={styles.Navbar_rigthSide}>
-        <h2>item1</h2>
-        <h2>item2</h2>
-        <h2>item3</h2>
+        {
+          isAuthenticated &&
+            <p>{user?.nickname}</p>
+        }
+        {
+          isAuthenticated && 
+            <img src={user?.picture} />
+        }
       </div>
     </nav>
   );

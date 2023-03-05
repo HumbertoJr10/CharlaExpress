@@ -2,7 +2,7 @@
     width: 100%;
     height: 50px;
     background-color: rgb(85, 167, 85);
-    position: absolute;
+    position: relative;
     display: flex;
     padding: 5px;
     box-shadow: 1px 1px 12px 1px rgba(0, 0, 0, 0.644);
@@ -10,20 +10,50 @@
 
 .Navbar_leftSide {
     width: 50%;
-    border: 1px solid red;
     display: flex;
     align-items: center;
+    font-family: 'Josefin Sans', sans-serif;
+    padding-left: 15px;
+}
+
+.Navbar_leftSide img {
+    width: 40px;
+}
+
+.Navbar_leftSide h1 {
+    color: #3a5a40;
+    font-size: 30px;
+}
+
+.Navbar_leftSide h1 strong {
+    color: #dad7cd;
 }
 
 .Navbar_rigthSide {
     width: 50%;
-    border: 1px solid red;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-end;
+    padding-right: 15px;
 }
 
-.Navbar_rigthSide h2 {
-    color: white;
+.Navbar_rigthSide img {
+    border-radius: 100%;
+    width: 50px;
     cursor: pointer;
+    transition: transform .2s ease-in;
+}
+
+.Navbar_rigthSide img:hover {
+    transform: scale(1.1);
+}
+
+.Navbar_rigthSide p {
+    margin: 10px;
+    transition: color .2s ease;
+    cursor: pointer;
+}
+
+.Navbar_rigthSide p:hover {
+    color: #3a5a40;
 }

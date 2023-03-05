@@ -10,7 +10,7 @@ export const deleteGlobalChat = async ( req: Request, res: Response)=> {
         
         const message = await GlobalChatModel.findOneAndDelete({ _id })
         
-        res.status(200).json('Mensaje eliminado')
+        res.status(200).json(message)
 
     } catch (error) {
         res.status(404).json(error)

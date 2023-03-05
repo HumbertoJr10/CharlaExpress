@@ -13,12 +13,12 @@ const io = new SocketServer(Server, {
 io.on("connection", (socket) => {
   console.log(`user: ${socket.id} user connected`);
 
-  /*
+
   socket.on("message", (message) => {
     console.log(`${socket.id} dice: ${message}`);
     socket.broadcast.emit("message", message);
   });
-  */
+  
 
 });
 

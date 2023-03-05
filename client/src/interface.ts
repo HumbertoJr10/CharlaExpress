@@ -15,3 +15,7 @@ export interface iGlobalMessage {
     date: string
     _id: string
 }
+
+export interface iSendMessage {
+    message: string
+}

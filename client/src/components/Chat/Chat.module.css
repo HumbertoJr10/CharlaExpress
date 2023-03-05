@@ -1,7 +1,7 @@
 .Chat_Overlay {
     width: 100%;
     height: 100%;
-    padding-top: 90px;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,7 +19,14 @@
     padding: 5px;
     overflow: scroll;
     overflow-x: hidden;
+    margin-top: 15px
 }
+
+.Chat_Container::-webkit-scrollbar {
+    width: 5px;
+    
+}
+
 
 .Chat_Chat_Container {
     position: absolute;
@@ -36,7 +43,12 @@
 .Chat_Chat_EmoticonSide {
     width: 100px;
     height: 40px;
-    background-color: rgb(182, 182, 9);
+    cursor: pointer;
+    border-radius: 100%;
+}
+
+.Chat_Chat_EmoticonSide:hover {
+    background-color: rgb(25, 25, 29);
 }
 
 .Chat_Chat_TextSide {
@@ -66,17 +78,42 @@
 }
 
 .Chat_Chat_SubmitSide {
-    width: 100px;
-    height: 40px;
-    background-color: rgb(182, 182, 9);
+    width: 50px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 100%;
+}
+
+.Chat_Chat_SubmitSide button {
+    background-color: rgb(18, 18, 22);
+    border: none;
+    border-radius: 100%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.Chat_Chat_SubmitSide img {
+    position: relative;
+    left: 3px;
+    width: 30px;
+}
+
+.Chat_Chat_EmoticonSide {
+    position: relative;
+    width: 40px;
+}
+
+.Chat_Chat_SubmitSide:hover {
+    background-color: rgb(25, 25, 29);
+    cursor: pointer;
 }
 
 
 .Chat_MessageContainer {
-    border: 1px solid red;
+    background-color: #219ebc;
     margin: 10px;
     padding: 10px 20px;
     border-radius: 15px;
