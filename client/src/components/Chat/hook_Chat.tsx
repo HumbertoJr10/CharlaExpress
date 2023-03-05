@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { iState } from "../../interface";
+import { iGlobalMessage, iState } from "../../interface";
 import {
   DeleteMessage_globalChat,
-  messages_globalChat,
+  messages_globalChat
 } from "../../redux/action";
 import { sendMessage_globalChat } from "../../redux/action";
 import { iSendMessage } from "../../interface";
@@ -17,6 +17,7 @@ export const hook_Chat = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const messages = useSelector((state: iState) => state.GlobalChat);
+  const [ newMessage, setNewMessage] = useState<boolean>(false)
 
   const {user, isAuthenticated} = useAuth0()
 
@@ -27,8 +28,9 @@ export const hook_Chat = () => {
     });
   }
 
+  // -------- USE EFFECT ------------------
   useEffect(() => {
-    messages_globalChat()
+      messages_globalChat()
       .then((res) => {
         dispatch(res);
       })
@@ -40,10 +42,20 @@ export const hook_Chat = () => {
   }, [messages]);
 
   useEffect(()=> {
-    socket.on('message', (message)=> {
+
+
+    socket.on('message', async (message)=> {
       console.log(message)
+      dispatch(await messages_globalChat(message))
     })
-  }, [])
+
+    return ()=> {
+      socket.off('message')
+    }
+  }, [newMessage])
+// ----------------------------------------- 
+
+
 
   const HandlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText({
@@ -51,20 +63,30 @@ export const hook_Chat = () => {
     });
   };
 
-  const MessageSubbmit = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const MessageSubbmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
     if (!isAuthenticated) {
       return alert('Debe iniciar sesion para poder escribir en el chat')
     }
 
-    if (user?.email) {
+    if (user?.email && user?.picture && user?.nickname) {
+
+      const newMessage:iGlobalMessage = {
+        author: {
+          picture: user.picture,
+          username: user.nickname,
+          _id: user.nickname + "id"
+        },
+        date: new Date(),
+        message: text.message,
+        _id: "front"
+      }
+      dispatch(await messages_globalChat(newMessage))
 
       sendMessage_globalChat(user.email, text)
         .then((res) => {
-          dispatch(res);
+          console.log(res);
         })
         .catch((error) => alert(error));
   
@@ -72,7 +94,8 @@ export const hook_Chat = () => {
         message: "",
       });
   
-      socket.emit('message', text.message)
+      socket.emit('message', newMessage)
+      setNewMessage(!newMessage)
     }
   };
 
@@ -81,6 +104,8 @@ export const hook_Chat = () => {
       dispatch(res);
     });
   };
+
+
 
   return {
     text,

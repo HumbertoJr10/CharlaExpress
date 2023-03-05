@@ -1,4 +1,4 @@
-import { MESSAGES_GLOBALCHAT, DELETE_MESSAGE_GLOBALCHAT, SEND_MESSAGE_GLOBALCHAT, USER_LOGIN } from "./action"
+import { MESSAGES_GLOBALCHAT, DELETE_MESSAGE_GLOBALCHAT, SEND_MESSAGE_GLOBALCHAT, USER_LOGIN, NEW_GLOBALCHAT } from "./action"
 import { iState } from "../interface"
 
 const initialState:iState = {
@@ -13,6 +13,12 @@ const reducer = (state = initialState, { type, payload }:{type: any, payload:any
             return {
                 ...state,
                 GlobalChat: payload
+            }
+
+        case NEW_GLOBALCHAT: 
+            return {
+                ...state,
+                GlobalChat: [...state.GlobalChat, payload]
             }
         
         case SEND_MESSAGE_GLOBALCHAT:

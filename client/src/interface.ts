@@ -12,7 +12,7 @@ export interface iAuthor {
 export interface iGlobalMessage {
     message: string
     author: iAuthor
-    date: string
+    date: string | Date
     _id: string
 }
 

@@ -13,7 +13,7 @@ function Chat () {
   
   const { text, messages, chatContainerRef, DeleteMessage, HandlerChange, MessageSubbmit } = hook_Chat()
 
-
+  console.log(messages)
   return (
     <div className={styles.Chat_Overlay}>
       <main className={styles.Chat_Container} ref={chatContainerRef}>

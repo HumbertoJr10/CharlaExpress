@@ -1,16 +1,25 @@
 //---------------------------------------------
-import { iSendMessage, iUser } from "../interface";
+import { iGlobalMessage, iSendMessage, iUser } from "../interface";
 
 //-----------------------------------------------
 export const MESSAGES_GLOBALCHAT = 'MESSAGES_GLOBALCHAT';
 export const DELETE_MESSAGE_GLOBALCHAT = 'DELETE_MESSAGE_GLOBALCHAT';
 export const SEND_MESSAGE_GLOBALCHAT = 'SEND_MESSAGE_GLOBALCHAT';
-export const USER_LOGIN = 'USER_LOGIN'
+export const USER_LOGIN = 'USER_LOGIN';
+export const NEW_GLOBALCHAT = 'NEW_GLOBALCHAT';
 
-export async function messages_globalChat () {
+export async function messages_globalChat (front:boolean | iGlobalMessage = false) {  
+    if (front) {
+        console.log('nuevo mensaje')
+        return {
+            type: NEW_GLOBALCHAT,
+            payload: front
+        }
+    }
         const data = await fetch(`http://localhost:4000/globalchat`)
         .then( res => res.json())
         .then( data => data)
+
 
         return {
             type: MESSAGES_GLOBALCHAT,

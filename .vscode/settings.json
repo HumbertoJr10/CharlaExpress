@@ -1,12 +1,13 @@
 {
-    "conventionalCommits.scopes": [
-        "Server",
-        "Components",
-        "Database",
-        "Route",
-        "models",
-        "Redux",
-        "Login",
-        "home"
-    ]
+  "conventionalCommits.scopes": [
+    "Server",
+    "Components",
+    "Database",
+    "Route",
+    "models",
+    "Redux",
+    "Login",
+    "home",
+    "Chat"
+  ]
 }
