@@ -113,18 +113,55 @@
 
 
 .Chat_MessageContainer {
-    background-color: #219ebc;
+    background-color: #a3b18a;
     margin: 10px;
     padding: 10px 20px;
     border-radius: 15px;
     border-top-left-radius: 0px;
     display: flex;
     flex-direction: column;
+    font-family: 'Josefin Sans', sans-serif;
+    min-width: 200px;
 }
 
 .chat_MessageOverlay {
-    
     display: flex;
     width: 100%;
     justify-content: start;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.chat_MessageOverlay img {
+    border-radius: 100%;
+    width: 70px;
+    height: 70px;
+}
+
+.Chat_MessageAuthor {
+    display: flex;
+    flex-direction: column;
+}
+
+.Chat_MessageAuthor p {
+    color: #132a13;
+    font-size: 15px;
+    font-weight: bolder;
+    position: relative;
+    bottom: 5px;
+}
+
+.Chat_MessageContent {
+    color: #132a13;
+    
+}
+
+.Chat_Date {
+    display: flex;
+    justify-content: end;
+}
+
+.Chat_Date p {
+    color: #394234;
+    
 }
