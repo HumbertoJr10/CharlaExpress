@@ -7,25 +7,32 @@ import moment from 'moment';
 
 // ----------SVG --------------
 import sendBlue from '../../assets/blueSend.svg';
-import emoticonIcon from '../../assets/emoticonIcon.svg'
+import emoticonIcon from '../../assets/emoticonIcon.svg';
+import config from '../../assets/config.svg'
 
 
 function Chat () {
   
-  const { text, messages, chatContainerRef, DeleteMessage, HandlerChange, MessageSubbmit } = hook_Chat()
+  const { text, messages, chatContainerRef, UserLoged, DeleteMessage, HandlerChange, MessageSubbmit } = hook_Chat()
 
-  console.log(messages)
+  console.log(UserLoged)
   
   return (
     <div className={styles.Chat_Overlay}>
       <main className={styles.Chat_Container} ref={chatContainerRef}>
           {
             messages.map((chat, index) => (
-              <div key={index + "Message"} className={styles.chat_MessageOverlay}>
-                <img src={chat.author.picture} />
+              <div key={index + "Message"} className={chat.author.username!=UserLoged.username? styles.chat_MessageOverlay: styles.chat_Me}>
+                <div className={styles.chat_pictureSide}>
+                  {
+                    chat.author.username!=messages[index-1]?.author.username &&
+                    <img src={chat.author.picture} />
+                  }
+                </div>
                 <div className={styles.Chat_MessageContainer} key={index}>
                     <div className={styles.Chat_MessageAuthor}>
                       <p>{chat.author.username}</p>
+                      <img src={config} />
                     </div>
                     <div className={styles.Chat_MessageContent}>
                       <p>{chat.message}</p>

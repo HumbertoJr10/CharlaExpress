@@ -3,7 +3,7 @@ import { iState } from "../interface"
 
 const initialState:iState = {
     GlobalChat: [],
-    UserLoged: {}
+    UserLoged: { email: "", picture: "", username: "" }
 }
 
 const reducer = (state = initialState, { type, payload }:{type: any, payload:any}) => {

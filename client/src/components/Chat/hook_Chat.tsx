@@ -18,7 +18,7 @@ export const hook_Chat = () => {
   const dispatch = useDispatch();
   const messages = useSelector((state: iState) => state.GlobalChat);
   const [ newMessage, setNewMessage] = useState<boolean>(false)
-
+  const UserLoged = useSelector( (state:iState) => state.UserLoged)
   const {user, isAuthenticated} = useAuth0()
 
   function scrollToBottom() {
@@ -109,6 +109,7 @@ export const hook_Chat = () => {
     text,
     messages,
     chatContainerRef,
+    UserLoged,
     HandlerChange,
     MessageSubbmit,
     DeleteMessage,

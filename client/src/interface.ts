@@ -1,6 +1,6 @@
 export interface iState {
     GlobalChat: iGlobalMessage[]
-    UserLoged: {}
+    UserLoged: iUser
 }
 
 export interface iAuthor {

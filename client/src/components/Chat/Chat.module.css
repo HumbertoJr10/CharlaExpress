@@ -114,7 +114,7 @@
 
 .Chat_MessageContainer {
     background-color: #a3b18a;
-    margin: 10px;
+    margin: 5px;
     padding: 10px 20px;
     border-radius: 15px;
     border-top-left-radius: 0px;
@@ -132,15 +132,52 @@
     margin-left: 10px;
 }
 
+.chat_Me {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
+
+.chat_Me .chat_pictureSide {
+    display: none;
+}
+
+.chat_Me .Chat_MessageContainer {
+    background-color:#118ab2;
+    
+}
+
+.chat_Me .Chat_MessageContainer p {
+    color: white;
+}
+
+.chat_Me .Chat_MessageContainer .Chat_MessageAuthor p {
+    display: none;
+}
+
+.chat_Me .Chat_MessageContainer .Chat_MessageAuthor {
+    display: flex;
+    justify-content: end;
+}
+
+.chat_pictureSide {
+    width: 70px;
+    height: 70px;
+    
+}
+
 .chat_MessageOverlay img {
     border-radius: 100%;
     width: 70px;
     height: 70px;
+    
 }
 
 .Chat_MessageAuthor {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    
 }
 
 .Chat_MessageAuthor p {
@@ -148,12 +185,17 @@
     font-size: 15px;
     font-weight: bolder;
     position: relative;
-    bottom: 5px;
+}
+
+.Chat_MessageAuthor img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
 }
 
 .Chat_MessageContent {
     color: #132a13;
-    
+    margin: 5px 0px;
 }
 
 .Chat_Date {
@@ -163,5 +205,5 @@
 
 .Chat_Date p {
     color: #394234;
-    
+    font-size: 12px;
 }
