@@ -25,7 +25,7 @@ io.on("connection", (socket) => {
 set('strictQuery', true)
 
 async function connectDB() {
-  const db = await connect('mongodb+srv://Lunaku:PAetPruf25XaYAh5@cluster0.lnixbat.mongodb.net/test')
+  const db = await connect('mongodb+srv://Lunaku:habbo555@cluster0.lnixbat.mongodb.net/test')
   Server.listen(PORT, () => {
     console.log(`Server connected on port ${PORT}`);
   });
