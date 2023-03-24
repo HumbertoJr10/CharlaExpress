@@ -7,6 +7,8 @@ export const DELETE_MESSAGE_GLOBALCHAT = 'DELETE_MESSAGE_GLOBALCHAT';
 export const SEND_MESSAGE_GLOBALCHAT = 'SEND_MESSAGE_GLOBALCHAT';
 export const USER_LOGIN = 'USER_LOGIN';
 export const NEW_GLOBALCHAT = 'NEW_GLOBALCHAT';
+export const GET_USERS = 'GET_USERS' 
+export const GET_CHATS = 'GET_CHATS'
 
 export async function messages_globalChat (front:boolean | iGlobalMessage = false) {  
     if (front) {
@@ -68,4 +70,26 @@ export async function userLogin (user: iUser) {
         type: USER_LOGIN,
         payload: userLoged
       }
+}
+
+export async function getAllUsers () {
+    const allUsers = await fetch('http://localhost:4000/users')
+    .then( res => res.json())
+    .then( data => data)
+
+    return {
+        type: GET_USERS,
+        payload: allUsers
+    }
+}
+
+export async function getAllChat (id: string) {
+    const allChat = await fetch(`http://localhost:4000/privatechat/${id}`)
+    .then(res => res.json())
+    .then( data => data)
+    
+    return {
+        type: GET_CHATS,
+        payload: allChat
+    }
 }

@@ -1,6 +1,8 @@
 export interface iState {
     GlobalChat: iGlobalMessage[]
     UserLoged: iUser
+    UsersList: iUser[]
+    chat: iChat[]
 }
 
 export interface iAuthor {
@@ -23,5 +25,13 @@ export interface iSendMessage {
 export interface iUser {
     username: string,
     email: string,
-    picture: string
+    picture: string,
+    chat: iChat[]
+    _id: string
+}
+
+export interface iChat {
+    participants: iUser[],
+    chat: iGlobalMessage[],
+    _id: string
 }

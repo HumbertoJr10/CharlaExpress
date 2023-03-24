@@ -8,55 +8,89 @@ import moment from 'moment';
 // ----------SVG --------------
 import sendBlue from '../../assets/blueSend.svg';
 import emoticonIcon from '../../assets/emoticonIcon.svg';
-import config from '../../assets/config.svg'
+import configBlack from '../../assets/configBlack.svg';
+import configWhite from '../../assets/configWhite.svg';
+import sendWhite from '../../assets/sendWhite.svg';
+import lupaWhite from '../../assets/lupaWhite.svg';
+import userList from '../../assets/userList.svg';
 
 
 function Chat () {
   
-  const { text, messages, chatContainerRef, UserLoged, DeleteMessage, HandlerChange, MessageSubbmit } = hook_Chat()
+  const { text, messages, chatContainerRef, UserLoged, allUsers, UserMenu, AllChats, ChatActive, DeleteMessage, HandlerChange, MessageSubbmit, menuHandler, activeChat } = hook_Chat()
 
-  console.log(UserLoged)
-  
+  //console.log(UserLoged)
+
   return (
-    <div className={styles.Chat_Overlay}>
-      <main className={styles.Chat_Container} ref={chatContainerRef}>
+    <div className={UserMenu ? styles.Chat_Container : styles.Chat_Container_Close}>
+      <div className={styles.Chat_ChatList}>
+        <div className={styles.ChatMenuHeader}>
+          <h2>Chats</h2>
+          <img className={styles.menuHandler} onClick={menuHandler} src={userList} />
+        </div>
+        <div className={styles.Chat_ChatSearchbar}>
+          <input type="text" placeholder='Buscar...' />
+          <div className={styles.Chat_SearchButton}>
+            <img src={lupaWhite} />
+          </div>
+        </div>
+        <div className={styles.AllChats}>
+          <div className={ChatActive == "globalChat" ? styles.OneActiveChat : styles.OneChat} key="globalChat" onClick={() => activeChat("globalChat")}>
+            <img src="https://cdn-icons-png.flaticon.com/512/134/134932.png" />
+            <p>Chat Global</p>
+          </div>
           {
-            messages.map((chat, index) => (
-              <div key={index + "Message"} className={chat.author.username!=UserLoged.username? styles.chat_MessageOverlay: styles.chat_Me}>
-                <div className={styles.chat_pictureSide}>
-                  {
-                    chat.author.username!=messages[index-1]?.author.username &&
-                    <img src={chat.author.picture} />
-                  }
-                </div>
-                <div className={styles.Chat_MessageContainer} key={index}>
-                    <div className={styles.Chat_MessageAuthor}>
-                      <p>{chat.author.username}</p>
-                      <img src={config} />
-                    </div>
-                    <div className={styles.Chat_MessageContent}>
-                      <p>{chat.message}</p>
-                    </div>
-                    <div className={styles.Chat_Date}>
-                      <p>{moment(chat.date).calendar()}</p>
-                    </div>
-                </div>
+            AllChats?.map((chat, index) => (
+              <div key={chat._id} className={ChatActive == chat._id ? styles.OneActiveChat : styles.OneChat} onClick={() => activeChat(chat._id)}>
+                <img src={chat.participants[0].username === UserLoged.username ? chat.participants[1].picture : chat.participants[0].picture} />
+                <p>{ chat.participants[0].username === UserLoged.username ? chat.participants[1].username : chat.participants[0].username}</p>
               </div>
             ))
           }
-      </main>
-      <form className={styles.Chat_Chat_Container}>
-        <div className={styles.Chat_Chat_EmoticonSide}>
-          <img src={emoticonIcon} alt="" />
+          </div>
+      </div>
+      <div className={styles.Chat_Conversation} ref={chatContainerRef}>
+        {
+          messages.map( e => (
+            <div className={e.author.username === UserLoged.username? styles.Chat_MSG_B_overlay : styles.Chat_MSG_A_overlay}>
+              <div className={e.author.username === UserLoged.username? styles.Chat_MSG_B_Container : styles.Chat_MSG_A_Container}>
+                <div className={styles.Chat_MSG_header}>
+                  <p>{e.author.username == UserLoged.username ? " " : e.author.username[0].toUpperCase() + e.author.username.slice(1)}</p>
+                  <img src={configWhite} onClick={()=> DeleteMessage(e._id)}/>
+                </div>
+                <div className={styles.Chat_MSG_content}>
+                  <p>{e.message}</p>
+                </div>
+                <div className={styles.Chat_MSG_Date}>
+                  <p>{moment(e.date).calendar()}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <div className={UserMenu ? styles.Chat_UserList: styles.none}>
+        <p>Lista de usuarios</p>
+        <div className={styles.Chat_UsersDiv}>
+          {
+            allUsers.map( e => (
+              <div className={e.username!=UserLoged.username ? styles.Chat_UsersContainer : styles.none}>
+                <img src={e.picture} />
+                <p>{e.username}</p>
+              </div>
+            ))
+          }
         </div>
-        <div className={styles.Chat_Chat_TextSide}>
-          <input onChange={HandlerChange} type={'text'} placeholder='Send a message...' value={text.message}/>
-        </div>
-        <div className={styles.Chat_Chat_SubmitSide}>
-          <button onClick={MessageSubbmit}>
-            <img src={sendBlue} alt="" />
+      </div>
+      <div className={styles.Chat_Profile}>
+          <img src={UserLoged.picture} alt="user" />
+          <p>{UserLoged.username}</p>
+      </div>
+      <form className={styles.Chat_MessageContainer}>
+          <input type="text" placeholder='Escribe un mensaje...' value={text.message} onChange={HandlerChange}/>
+          <button className={styles.Chat_SendButton} onClick={MessageSubbmit}>
+            <img src={sendWhite} />
           </button>
-        </div>
       </form>
     </div>
   )

@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { iGlobalMessage, iState } from "../../interface";
 import {
   DeleteMessage_globalChat,
-  messages_globalChat
+  messages_globalChat,
+  getAllUsers,
+  getAllChat
 } from "../../redux/action";
 import { sendMessage_globalChat } from "../../redux/action";
 import { iSendMessage } from "../../interface";
@@ -17,9 +19,16 @@ export const hook_Chat = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const messages = useSelector((state: iState) => state.GlobalChat);
+  const allUsers = useSelector( (state:iState) => state.UsersList)
   const [ newMessage, setNewMessage] = useState<boolean>(false)
   const UserLoged = useSelector( (state:iState) => state.UserLoged)
   const {user, isAuthenticated} = useAuth0()
+  const AllChats = useSelector( (state: iState) => state.chat)
+  
+
+
+  const [ UserMenu, SetUserMenu ] = useState<boolean>(false)
+  const [ChatActive, setChatActive] = useState<string>("globalChat")
 
   function scrollToBottom() {
     chatContainerRef.current?.scrollTo({
@@ -51,9 +60,21 @@ export const hook_Chat = () => {
       socket.off('message')
     }
   }, [newMessage])
+
+  useEffect( ()=> {
+    getAllUsers()
+    .then( res => dispatch(res))
+  }, [])
+
+  useEffect( ()=> {
+    getAllChat(UserLoged._id)
+    .then( res => dispatch(res))
+  }, [UserLoged])
 // ----------------------------------------- 
 
-
+  const menuHandler = () => {
+    SetUserMenu(!UserMenu)
+  }
 
   const HandlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText({
@@ -103,15 +124,23 @@ export const hook_Chat = () => {
     });
   };
 
-
+  const activeChat = (id:string) => {
+    setChatActive(id)
+  }
 
   return {
     text,
     messages,
     chatContainerRef,
     UserLoged,
+    allUsers,
+    UserMenu,
+    AllChats,
+    ChatActive,
     HandlerChange,
     MessageSubbmit,
     DeleteMessage,
+    menuHandler,
+    activeChat
   };
 };
