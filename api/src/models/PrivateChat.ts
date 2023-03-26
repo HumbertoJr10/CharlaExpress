@@ -1,6 +1,6 @@
 import { getModelForClass, prop } from "@typegoose/typegoose";
 import { User } from "./User";
-import { GlobalChat } from "./GlobalChat";
+import { Message } from "./Message";
 import moment from "moment";
 
 export class PrivateChat {
@@ -8,8 +8,9 @@ export class PrivateChat {
     @prop({ref: "User"})
     participants: User[]
 
-    @prop({ref: "GlobalChat", required: false})
-    chat: GlobalChat[]
+    @prop({ref: "Message", required: false})
+    chat: Message[]
+    _id: unknown;
 
 }
 

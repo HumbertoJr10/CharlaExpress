@@ -16,8 +16,9 @@ export class User {
   @prop({ type: Boolean, default: false, required: false })
   deleted: boolean;
 
-  @prop({ref: "PrivateChat", required: false})
+  @prop({ref: "PrivateChat", required: false, default: []})
   chat: PrivateChat[]
+    _id: any;
 }
 
 const UserModel = getModelForClass(User);

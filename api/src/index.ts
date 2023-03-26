@@ -18,6 +18,11 @@ io.on("connection", (socket) => {
     console.log(`${socket.id} dice: ${message}`);
     socket.broadcast.emit("message", message);
   });
+
+  socket.on("PrivateMessage", (format) => {
+    console.log(format)
+    socket.broadcast.emit("PrivateMessage", format)
+  })
   
 
 });

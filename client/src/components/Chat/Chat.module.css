@@ -211,6 +211,7 @@
     display: flex;
     align-items: center;
     margin: 10px 5px;
+    cursor: pointer;
 }
 
 .Chat_UsersDiv {
@@ -263,6 +264,7 @@
     margin: 5px 0px;
     align-items: center;
     border-radius: 5px;
+    position: relative;
 }
 
 .OneActiveChat {
@@ -273,9 +275,10 @@
     align-items: center;
     border-radius: 5px;
     background-color: #13263f;
+    position: relative;
 }
 
-.OneActiveChat img {
+.chatPicture {
     width: 40px;
     height: 40px;
     margin-right: 10px;
@@ -286,9 +289,28 @@
     background-color: #13263f;
 }
 
-.OneChat img {
+.OneChat:hover .closeChat {
+    display: block;
+}
+
+.OneActiveChat:hover .closeChat {
+    display: block;
+}
+
+.chatPicture {
     width: 40px;
     height: 40px;
     margin-right: 10px;
     margin-left: 5px;
+}
+
+.closeChat {
+    display: none;
+    position: absolute;
+    right: 0;
+    width: 17px;
+    height: 17px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #13263f;
 }

@@ -19,13 +19,13 @@
 
 .textSide button {
     margin-top: 15px;
-    background-color: rgb(85, 167, 85);
+    background-color: #1d3557;
     width: 130px;
     height: 30px;
     cursor: pointer;
     font-size: 17px;
     border-radius: 20px;
-    border: 1px solid rgb(85, 167, 85);
+    border: 1px solid #1d3557;
     color: white;
     transition: all .2s ease-in;
 }
@@ -49,7 +49,7 @@
 
 .imgDecoration {
     position: absolute;
-    background-color: rgb(85, 167, 85);
+    background-color: #1d3557;
     width: 300px;
     height: 300px;
     border-radius: 100%;

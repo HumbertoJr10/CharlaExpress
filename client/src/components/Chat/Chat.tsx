@@ -1,23 +1,17 @@
-import { useRef } from 'react';
 import styles from './Chat.module.css';
 import { hook_Chat } from './hook_Chat';
-import { useSelector } from 'react-redux';
-import { iGlobalMessage, iState } from '../../interface';
 import moment from 'moment';
 
 // ----------SVG --------------
-import sendBlue from '../../assets/blueSend.svg';
-import emoticonIcon from '../../assets/emoticonIcon.svg';
-import configBlack from '../../assets/configBlack.svg';
 import configWhite from '../../assets/configWhite.svg';
 import sendWhite from '../../assets/sendWhite.svg';
 import lupaWhite from '../../assets/lupaWhite.svg';
 import userList from '../../assets/userList.svg';
-
+import closeW from '../../assets/closeWhite.svg'
 
 function Chat () {
   
-  const { text, messages, chatContainerRef, UserLoged, allUsers, UserMenu, AllChats, ChatActive, DeleteMessage, HandlerChange, MessageSubbmit, menuHandler, activeChat } = hook_Chat()
+  const { text, messages, chatContainerRef, UserLoged, allUsers, UserMenu, AllChats, ChatActive, DeleteMessage, HandlerChange, MessageSubbmit, menuHandler, activeChat, CreateNewChat, deleteChatPrivate, isAuthenticated } = hook_Chat()
 
   //console.log(UserLoged)
 
@@ -36,14 +30,15 @@ function Chat () {
         </div>
         <div className={styles.AllChats}>
           <div className={ChatActive == "globalChat" ? styles.OneActiveChat : styles.OneChat} key="globalChat" onClick={() => activeChat("globalChat")}>
-            <img src="https://cdn-icons-png.flaticon.com/512/134/134932.png" />
+            <img className={styles.chatPicture} src="https://cdn-icons-png.flaticon.com/512/134/134932.png" />
             <p>Chat Global</p>
           </div>
           {
             AllChats?.map((chat, index) => (
               <div key={chat._id} className={ChatActive == chat._id ? styles.OneActiveChat : styles.OneChat} onClick={() => activeChat(chat._id)}>
-                <img src={chat.participants[0].username === UserLoged.username ? chat.participants[1].picture : chat.participants[0].picture} />
+                <img className={styles.chatPicture} src={chat.participants[0].username === UserLoged.username ? chat.participants[1].picture : chat.participants[0].picture} />
                 <p>{ chat.participants[0].username === UserLoged.username ? chat.participants[1].username : chat.participants[0].username}</p>
+                <img onClick={() => deleteChatPrivate(chat._id)} src={closeW} className={styles.closeChat} />
               </div>
             ))
           }
@@ -54,7 +49,7 @@ function Chat () {
           messages.map( e => (
             <div className={e.author.username === UserLoged.username? styles.Chat_MSG_B_overlay : styles.Chat_MSG_A_overlay}>
               <div className={e.author.username === UserLoged.username? styles.Chat_MSG_B_Container : styles.Chat_MSG_A_Container}>
-                <div className={styles.Chat_MSG_header}>
+                <div className={ChatActive==='globalChat' ? styles.Chat_MSG_header : styles.none}>
                   <p>{e.author.username == UserLoged.username ? " " : e.author.username[0].toUpperCase() + e.author.username.slice(1)}</p>
                   <img src={configWhite} onClick={()=> DeleteMessage(e._id)}/>
                 </div>
@@ -74,7 +69,7 @@ function Chat () {
         <div className={styles.Chat_UsersDiv}>
           {
             allUsers.map( e => (
-              <div className={e.username!=UserLoged.username ? styles.Chat_UsersContainer : styles.none}>
+              <div className={e.username!=UserLoged.username ? styles.Chat_UsersContainer : styles.none} onClick={() => CreateNewChat(UserLoged._id, e._id) }>
                 <img src={e.picture} />
                 <p>{e.username}</p>
               </div>
@@ -83,12 +78,12 @@ function Chat () {
         </div>
       </div>
       <div className={styles.Chat_Profile}>
-          <img src={UserLoged.picture} alt="user" />
-          <p>{UserLoged.username}</p>
+        <img src={UserLoged.picture} />
+        <p>{UserLoged.username}</p>
       </div>
       <form className={styles.Chat_MessageContainer}>
           <input type="text" placeholder='Escribe un mensaje...' value={text.message} onChange={HandlerChange}/>
-          <button className={styles.Chat_SendButton} onClick={MessageSubbmit}>
+          <button className={styles.Chat_SendButton} onClick={(e)=> MessageSubbmit(e, ChatActive)}>
             <img src={sendWhite} />
           </button>
       </form>

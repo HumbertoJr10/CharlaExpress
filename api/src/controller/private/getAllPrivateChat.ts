@@ -14,7 +14,11 @@ export const getPrivateChat = async (req: Request, res:Response) => {
             return res.status(404).json('Debe incluir un ID')
         }
 
-        const user = await UserModel.findById(id).populate({path: "chat", populate: "participants", })
+        const user = await UserModel.findById(id).populate({path: "chat", populate: [
+            { path: "participants" },
+            { path: "chat", populate: "author"}
+        ]})
+
         res.status(200).json(user?.chat)
         
     } catch (error) {

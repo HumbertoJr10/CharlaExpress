@@ -3,12 +3,13 @@ import { iGlobalMessage, iSendMessage, iUser } from "../interface";
 
 //-----------------------------------------------
 export const MESSAGES_GLOBALCHAT = 'MESSAGES_GLOBALCHAT';
+export const SEND_MESSAGES_PRIVATECHAT = 'SEND_MESSAGES_PRIVATECHAT';
 export const DELETE_MESSAGE_GLOBALCHAT = 'DELETE_MESSAGE_GLOBALCHAT';
 export const SEND_MESSAGE_GLOBALCHAT = 'SEND_MESSAGE_GLOBALCHAT';
 export const USER_LOGIN = 'USER_LOGIN';
 export const NEW_GLOBALCHAT = 'NEW_GLOBALCHAT';
-export const GET_USERS = 'GET_USERS' 
-export const GET_CHATS = 'GET_CHATS'
+export const GET_USERS = 'GET_USERS' ;
+export const GET_CHATS = 'GET_CHATS';
 
 export async function messages_globalChat (front:boolean | iGlobalMessage = false) {  
     if (front) {
@@ -40,6 +41,19 @@ export async function sendMessage_globalChat (email: string, message: iSendMessa
     return {
         type: SEND_MESSAGE_GLOBALCHAT,
         payload: msg
+    }
+}
+
+export function sendMessage_PrivateChat ( idChat:string, message:iGlobalMessage ) {
+
+    const a = {
+        idChat,
+        message
+    }
+
+    return {
+        type: SEND_MESSAGES_PRIVATECHAT,
+        payload: a
     }
 }
 
