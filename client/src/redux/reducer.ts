@@ -1,4 +1,4 @@
-import { MESSAGES_GLOBALCHAT, DELETE_MESSAGE_GLOBALCHAT, SEND_MESSAGE_GLOBALCHAT, USER_LOGIN, NEW_GLOBALCHAT, GET_USERS, GET_CHATS, SEND_MESSAGES_PRIVATECHAT } from "./action"
+import { DELETE_MESSAGE_GLOBALCHAT, USER_LOGIN, NEW_GLOBALCHAT, GET_USERS, GET_CHATS, SEND_MESSAGES_PRIVATECHAT, GET_GLOBAL_CHAT } from "./action"
 import { iState } from "../interface";
 
 
@@ -12,11 +12,18 @@ const initialState:iState = {
 const reducer = (state = initialState, { type, payload }:{type: any, payload:any}) => {
     switch (type) {
 
-        case MESSAGES_GLOBALCHAT:
+        case GET_GLOBAL_CHAT:
             return {
                 ...state,
                 GlobalChat: payload
             }
+
+        case NEW_GLOBALCHAT: 
+            return {
+                ...state,
+                GlobalChat: [...state.GlobalChat, payload]
+            }
+
 
         case SEND_MESSAGES_PRIVATECHAT:
             const newChat = [...state.chat]
@@ -40,11 +47,6 @@ const reducer = (state = initialState, { type, payload }:{type: any, payload:any
                 GlobalChat: [...state.GlobalChat, payload]
             }
         
-        case SEND_MESSAGE_GLOBALCHAT:
-            return {
-                ...state,
-                GlobalChat: [ ...state.GlobalChat, payload]
-            }
         
         case DELETE_MESSAGE_GLOBALCHAT:
             return {

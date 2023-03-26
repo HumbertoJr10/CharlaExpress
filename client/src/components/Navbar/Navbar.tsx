@@ -26,11 +26,11 @@ function Navbar() {
         }
         {
           isAuthenticated && 
-            <img onClick={() => logout()} src={user?.picture} />
+            <img onClick={() => logout()} src={UserLoged.picture} />
         }
         {
           !isAuthenticated &&
-            <button onClick={loginUser}>Login</button>
+            <button className={styles.LoginButton} onClick={loginUser}>Login</button>
         }
       </div>
     </nav>

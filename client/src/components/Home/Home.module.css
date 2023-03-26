@@ -1,13 +1,13 @@
 .Home_Container {
-    height: 93vh;
-    width: 100%;
-    display: flex;
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
 }
 
 .textSide {
     display: flex;
     flex-direction: column;
-    width: 50%;
     justify-content: center;
     align-items: center;
     padding: 20px;
@@ -36,7 +36,6 @@
 
 .imgSide {
     display: flex;
-    width: 50%;
     justify-content: center;
     align-items: center;
     position: relative;
@@ -44,7 +43,7 @@
 
 .imgSide img {
   z-index: 3;
-  width: 250px;
+  width: 200px;
 }
 
 .imgDecoration {

@@ -23,8 +23,11 @@ io.on("connection", (socket) => {
     console.log(format)
     socket.broadcast.emit("PrivateMessage", format)
   })
-  
 
+  socket.on("refreshChat", (a)=> {
+    socket.broadcast.emit("refreshChat", a)
+  })
+  
 });
 
 set('strictQuery', true)

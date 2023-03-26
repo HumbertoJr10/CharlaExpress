@@ -6,15 +6,17 @@ import {
   messages_globalChat,
   getAllUsers,
   getAllChat,
-  sendMessage_PrivateChat
+  sendMessage_PrivateChat,
+  getGlobalChat
 } from "../../redux/action";
-import { sendMessage_globalChat } from "../../redux/action";
 import { iSendMessage } from "../../interface";
 import { socket } from "../../App";
 import { useAuth0 } from "@auth0/auth0-react";
 import { createPrivateChat } from "../../Controllers/newChat";
 import { deleteChat } from "../../Controllers/deleteChat";
 import { newPrivateMessage } from "../../Controllers/newPrivateMessage";
+import { newGlobalMessage } from "../../Controllers/newGlobalMessage";
+import { getGlobalChatController } from "../../Controllers/getGlobalChat";
 
 export const hook_Chat = () => {
   const [text, setText] = useState<iSendMessage>({
@@ -45,22 +47,19 @@ export const hook_Chat = () => {
 
   // -------- USE EFFECT ------------------
   useEffect(() => {
-      messages_globalChat()
-      .then((res) => {
-        dispatch(res);
-        setMessages(res.payload)
-      })
-      .catch((error) => alert(error));
+      getGlobalChatController()
+      .then( async res => dispatch(getGlobalChat(res)))
   }, []);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, newPrivateMessageChange]);
 
   useEffect(()=> {
-    socket.on('message', async (message)=> {
-      console.log(message)
-      dispatch(await messages_globalChat(message))
+    socket.on("message", async (message)=> {
+      setMessages([...messages, message])
+      console.log('Escuchando')
+      dispatch(messages_globalChat(message))
     })
 
     return ()=> {
@@ -71,6 +70,7 @@ export const hook_Chat = () => {
   useEffect( ()=> {
     socket.on('PrivateMessage', (format => {
       dispatch(sendMessage_PrivateChat(format.idChat, format.newMessage))
+      setNewPrivateMessageChange(!newPrivateMessageChange)
     }))
 
     return ()=> {
@@ -87,6 +87,12 @@ export const hook_Chat = () => {
     getAllChat(UserLoged._id)
     .then( res => dispatch(res))
   }, [UserLoged, refreshChat])
+
+  useEffect( ()=> {
+    socket.on("refreshChat", (a) => {
+      setRefreshChat(!refreshChat)
+    })
+  })
 // ----------------------------------------- 
 
   const menuHandler = () => {
@@ -121,20 +127,24 @@ export const hook_Chat = () => {
 
       if (ChatActive==='globalChat') {
 
-        dispatch(await messages_globalChat(newMessage))
-  
-        sendMessage_globalChat(user.email, text)
-          .then((res) => {
-            
-          })
-          .catch((error) => alert(error));
-    
+        // SE CREA EN EL BACK CON EL CONTROLADOR-------
+       newGlobalMessage(UserLoged.email, text)
+       .then( res => {
+        console.log('Guardado en Back')
+       })
+       //---------------------------------------------
+
+
+        dispatch(messages_globalChat(newMessage))
+
         setText({
           message: "",
         });
     
         socket.emit('message', newMessage)
         setNewMessage(!newMessage)
+        setMessages([...messages, newMessage])
+        
       } else {
 
         newPrivateMessage(user.email, idChat, text.message)
@@ -182,7 +192,12 @@ export const hook_Chat = () => {
 
   const CreateNewChat = async (id1:string, id2: string) => {
     createPrivateChat(id1, id2)
-    .then( res => setRefreshChat(!refreshChat))
+    .then( res => {
+      setRefreshChat(!refreshChat)
+
+      const a = true
+      socket.emit("refreshChat", a)
+    })
   }
 
   const deleteChatPrivate = async (id:string) => {
@@ -209,6 +224,7 @@ export const hook_Chat = () => {
     activeChat,
     CreateNewChat,
     deleteChatPrivate,
-    isAuthenticated
+    isAuthenticated,
+    globalChat
   };
 };

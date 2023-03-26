@@ -46,8 +46,8 @@ function Chat () {
       </div>
       <div className={styles.Chat_Conversation} ref={chatContainerRef}>
         {
-          messages.map( e => (
-            <div className={e.author.username === UserLoged.username? styles.Chat_MSG_B_overlay : styles.Chat_MSG_A_overlay}>
+          messages.map( (e, i) => (
+            <div key={i} className={e.author.username === UserLoged.username? styles.Chat_MSG_B_overlay : styles.Chat_MSG_A_overlay}>
               <div className={e.author.username === UserLoged.username? styles.Chat_MSG_B_Container : styles.Chat_MSG_A_Container}>
                 <div className={ChatActive==='globalChat' ? styles.Chat_MSG_header : styles.none}>
                   <p>{e.author.username == UserLoged.username ? " " : e.author.username[0].toUpperCase() + e.author.username.slice(1)}</p>
