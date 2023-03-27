@@ -49,6 +49,7 @@ export const hook_Chat = () => {
   useEffect(() => {
       getGlobalChatController()
       .then( async res => dispatch(getGlobalChat(res)))
+      setMessages(globalChat)
   }, []);
 
   useEffect(() => {
@@ -56,16 +57,21 @@ export const hook_Chat = () => {
   }, [messages, newPrivateMessageChange]);
 
   useEffect(()=> {
-    socket.on("message", async (message)=> {
-      setMessages([...messages, message])
+    socket.on("message", async (msg)=> {
+      
+      const oldMsg = [...messages]
+      oldMsg.push(msg)
+      setMessages(oldMsg)
       console.log('Escuchando')
-      dispatch(messages_globalChat(message))
+      dispatch(messages_globalChat(msg))
+      
+     console.log(messages)
     })
 
     return ()=> {
       socket.off('message')
     }
-  }, [newMessage])
+  }, [messages])
 
   useEffect( ()=> {
     socket.on('PrivateMessage', (format => {
