@@ -184,6 +184,9 @@ export const hook_Chat = () => {
   const activeChat = (id:string) => {
     setChatActive(id)
     changeMessage(id)
+    setFilterText("")
+    dispatch(filterChat(filterText, UserLoged.username))
+    dispatch(filterChat("", UserLoged.username))
   }
 
   const changeMessage = (id:string) => {
