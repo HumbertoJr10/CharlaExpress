@@ -7,7 +7,8 @@ import {
   getAllUsers,
   getAllChat,
   sendMessage_PrivateChat,
-  getGlobalChat
+  getGlobalChat,
+  filterChat
 } from "../../redux/action";
 import { iSendMessage } from "../../interface";
 import { socket } from "../../App";
@@ -33,6 +34,7 @@ export const hook_Chat = () => {
   const AllChats = useSelector( (state: iState) => state.chat)
   const [messages, setMessages] = useState<iGlobalMessage[]>(globalChat)
   const [refreshChat, setRefreshChat] = useState<boolean>(false)
+  const [filterText, setFilterText] = useState<string>("")
 
 
   const [ UserMenu, SetUserMenu ] = useState<boolean>(false)
@@ -214,6 +216,11 @@ export const hook_Chat = () => {
     })
   }
 
+  const HanlderFilterChat = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setFilterText(e.target.value)
+    dispatch(filterChat(e.target.value, UserLoged.username))
+  }
+
   return {
     text,
     messages,
@@ -223,6 +230,7 @@ export const hook_Chat = () => {
     UserMenu,
     AllChats,
     ChatActive,
+    filterText,
     HandlerChange,
     MessageSubbmit,
     DeleteMessage,
@@ -231,6 +239,7 @@ export const hook_Chat = () => {
     CreateNewChat,
     deleteChatPrivate,
     isAuthenticated,
-    globalChat
+    globalChat,
+    HanlderFilterChat
   };
 };

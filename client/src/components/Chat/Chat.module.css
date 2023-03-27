@@ -314,3 +314,8 @@
     cursor: pointer;
     background-color: #13263f;
 }
+
+.HomeLink {
+    text-decoration: none;
+    color: white;
+}

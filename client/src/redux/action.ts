@@ -9,6 +9,17 @@ export const USER_LOGIN = 'USER_LOGIN';
 export const NEW_GLOBALCHAT = 'NEW_GLOBALCHAT';
 export const GET_USERS = 'GET_USERS' ;
 export const GET_CHATS = 'GET_CHATS';
+export const FILTER_CHAT = 'FILTER_CHAT'
+
+export function filterChat (str: string, str2:string) {
+    return {
+        type: FILTER_CHAT,
+        payload: {
+            username: str,
+            exclude: str2
+        }
+    }
+}
 
 export function getGlobalChat (allMessages: iGlobalMessage[]) {
     return {

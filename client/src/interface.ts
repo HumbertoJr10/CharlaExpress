@@ -3,6 +3,7 @@ export interface iState {
     UserLoged: iUser
     UsersList: iUser[]
     chat: iChat[]
+    chatRespaldo: iChat[]
 }
 
 export interface iAuthor {

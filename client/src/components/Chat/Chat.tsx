@@ -8,10 +8,11 @@ import sendWhite from '../../assets/sendWhite.svg';
 import lupaWhite from '../../assets/lupaWhite.svg';
 import userList from '../../assets/userList.svg';
 import closeW from '../../assets/closeWhite.svg'
+import { NavLink } from 'react-router-dom';
 
 function Chat () {
   
-  const { text, messages, chatContainerRef, UserLoged, allUsers, UserMenu, AllChats, ChatActive, DeleteMessage, HandlerChange, MessageSubbmit, menuHandler, activeChat, CreateNewChat, deleteChatPrivate, isAuthenticated } = hook_Chat()
+  const { text, messages, chatContainerRef, UserLoged, allUsers, UserMenu, AllChats, filterText, ChatActive, HanlderFilterChat, DeleteMessage, HandlerChange, MessageSubbmit, menuHandler, activeChat, CreateNewChat, deleteChatPrivate, isAuthenticated } = hook_Chat()
 
   //console.log(UserLoged)
 
@@ -19,11 +20,13 @@ function Chat () {
     <div className={UserMenu ? styles.Chat_Container : styles.Chat_Container_Close}>
       <div className={styles.Chat_ChatList}>
         <div className={styles.ChatMenuHeader}>
-          <h2>Chats</h2>
+          <NavLink className={styles.HomeLink} to="/">
+            <h2>Home</h2>
+          </NavLink>
           <img className={styles.menuHandler} onClick={menuHandler} src={userList} />
         </div>
         <div className={styles.Chat_ChatSearchbar}>
-          <input type="text" placeholder='Buscar...' />
+          <input onChange={HanlderFilterChat} type="text" placeholder='Buscar...' value={filterText}/>
           <div className={styles.Chat_SearchButton}>
             <img src={lupaWhite} />
           </div>

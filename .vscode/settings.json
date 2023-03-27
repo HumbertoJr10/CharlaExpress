@@ -8,6 +8,7 @@
     "Redux",
     "Login",
     "home",
-    "Chat"
+    "Chat",
+    "filterChat"
   ]
 }
